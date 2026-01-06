@@ -81,11 +81,7 @@ const Profile = () => {
             />
             <img
               src={
-                selectedImage
-                  ? URL.createObjectURL(selectedImage)
-                  : authUser.profilePic
-                  ? authUser.profilePic
-                  : assets.avatar_icon
+                assets.avatar_icon
               }
               className={`w-12 h-12 ${selectedImage && "rounded-full"}`}
             />
@@ -116,7 +112,7 @@ const Profile = () => {
 
         {/* ------ right ------ */}
         <img
-          src={assets.logo_icon}
+          src={authUser.profilePic || assets.logo_icon}
           className={`max-w-44 aspect-square rounded-full mx-10 max-sm:mt-10 ${
             selectedImage && "rounded-full"
           }`}
