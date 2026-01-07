@@ -28,10 +28,15 @@ app.use("/api/messages", messageRouter);
 // Start Server
 connectDB()
   .then(() => {
-    server.listen(PORT_NO, () => {
-      console.log(`Server is listening on localhost:${PORT_NO}`);
-    });
+    if (process.env.NODE_ENV !== "production") {
+      server.listen(PORT_NO, () => {
+        console.log(`Server is listening on localhost:${PORT_NO}`);
+      });
+    }
   })
   .catch((err) => {
     console.log("Database connection failed", err);
   });
+
+  // Export server for vercel
+export default server;
