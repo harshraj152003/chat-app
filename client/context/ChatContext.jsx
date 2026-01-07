@@ -22,7 +22,6 @@ export const ChatProvider = ({ children }) => {
     try {
       const { data } = await axios.get("/api/messages/users");
       if (data.success) {
-        console.log(data);
         setUsers(data.user);
         setUnseenMessages(data.unseenMessages || {});
       }
@@ -51,8 +50,6 @@ export const ChatProvider = ({ children }) => {
         `/api/messages/send/${selectedUser._id}`,
         messageData
       );
-
-      console.log("Backend Response Data:", data);
 
       if (data.success && data.message) {
         setMessages((prev) => [...prev, data.message]);

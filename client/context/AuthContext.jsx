@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { io } from "socket.io-client";
-import { Navigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 const backendUrl = import.meta.env.VITE_BACKEND_URL;

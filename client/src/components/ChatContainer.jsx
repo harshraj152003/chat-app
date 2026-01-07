@@ -78,10 +78,8 @@ const ChatContainer = () => {
 
       {/* -------- Chat Area ---------  */}
       <div className="flex flex-col h-[calc(100%-120px)] overflow-y-scroll p-3 pb-6">
-        {/* messages?.map use karein aur msg check karein ki undefined toh nahi */}
         {messages &&
           messages.map((msg, index) => {
-            // Agar msg undefined hai toh render na karein
             if (!msg) return null;
 
             return (

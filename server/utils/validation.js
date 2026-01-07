@@ -1,5 +1,4 @@
 import validator from "validator";
-import User from "../models/user.js";
 
 // Validate Sign Up data
 export const validateSignUpData = async (req) => {
