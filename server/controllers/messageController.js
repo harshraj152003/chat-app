@@ -45,6 +45,10 @@ export const getMessage = async (req, res) => {
     const { id: selectedUserId } = req.params;
     const loggedInUserId = req.user._id;
 
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
+
     const messages = await Message.find({
       $or: [
         { senderId: loggedInUserId, recieverId: selectedUserId },
@@ -69,6 +73,7 @@ export const getMessage = async (req, res) => {
     });
   }
 };
+
 
 // api to mark message as seen using message id
 export const markMessageAsSeen = async (req, res) => {

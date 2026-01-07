@@ -88,7 +88,9 @@ const Sidebar = () => {
         {filteredUsers.length > 0 ? (
           filteredUsers.map((user) => (
             <div
-              onClick={() => handleUserClick(user)}
+              onClick={() => {
+                handleUserClick(user);
+              }}
               key={user._id}
               className={`relative flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors ${
                 selectedUser?._id === user._id ? "bg-[#282142]" : "hover:bg-[#282142]/30"

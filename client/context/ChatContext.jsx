@@ -1,10 +1,16 @@
-import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import { AuthContext } from "./AuthContext";
 import toast from "react-hot-toast";
 
 export const ChatContext = createContext();
 
-export const ChatProvider = ({ children }) => { 
+export const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -12,7 +18,6 @@ export const ChatProvider = ({ children }) => {
 
   const { socket, axios } = useContext(AuthContext);
 
-  
   const getUsers = async () => {
     try {
       const { data } = await axios.get("/api/messages/users");
@@ -30,7 +35,7 @@ export const ChatProvider = ({ children }) => {
     if (!userId) return;
     try {
       const { data } = await axios.get(`/api/messages/${userId}`);
-      
+
       if (data.success) {
         setMessages(data.data || []);
       }
@@ -61,8 +66,9 @@ export const ChatProvider = ({ children }) => {
     if (!socket) return;
 
     const handleNewMessage = (newMessage) => {
-      const isFromSelected = selectedUser && newMessage.senderId === selectedUser._id;
-      
+      const isFromSelected =
+        selectedUser && newMessage.senderId === selectedUser._id;
+
       if (isFromSelected) {
         setMessages((prev) => [...prev, newMessage]);
         axios.put(`/api/messages/mark/${newMessage._id}`).catch(() => {});
@@ -77,7 +83,7 @@ export const ChatProvider = ({ children }) => {
     socket.on("newMessage", handleNewMessage);
 
     if (selectedUser?._id) {
-        getMessages(selectedUser._id);
+      getMessages(selectedUser._id);
     }
 
     return () => socket.off("newMessage", handleNewMessage);
