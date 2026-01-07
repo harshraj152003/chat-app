@@ -11,12 +11,12 @@ import { app, server } from "./lib/socket.js";
 const PORT_NO = process.env.PORT_NO || 5000;
 
 // Middleware setup
-app.use(
-  cors({
+app.use(cors({
     origin: "https://chat-app-nu-ruby-80.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  })
-);
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.json({ limit: "4mb" }));
 app.use(cookieParser());
 
