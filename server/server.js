@@ -9,14 +9,16 @@ import express from "express";
 import { app, server } from "./lib/socket.js";
 
 const PORT_NO = process.env.PORT_NO || 5000;
+const corsOptions = {
+  origin: "https://chat-app-nu-ruby-80.vercel.app",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
+  allowedHeaders: ["Content-Type", "Authorization"]
+};
 
 // Middleware setup
-app.use(cors({
-    origin: "https://chat-app-nu-ruby-80.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json({ limit: "4mb" }));
 app.use(cookieParser());
 
