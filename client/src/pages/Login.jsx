@@ -63,7 +63,6 @@ const Login = () => {
             onChange={(e) => setFullName(e.target.value)}
             value={fullName}
             type="text"
-            id=""
             className="p-2 border border-gray-500 rounded-md focus:outline-none"
             placeholder="Full Name"
             required
