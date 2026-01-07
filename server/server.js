@@ -13,7 +13,7 @@ const PORT_NO = process.env.PORT_NO || 5000;
 // Middleware setup
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://chat-app-nu-ruby-80.vercel.app",
     credentials: true,
   })
 );
