@@ -32,9 +32,10 @@ export const ChatProvider = ({ children }) => {
       const { data } = await axios.get(`/api/messages/${userId}`);
       
       if (data.success) {
-        setMessages(data.messages);
+        setMessages(data.data || []);
       }
     } catch (err) {
+      setMessages([]);
       toast.error("Failed to load messages");
     }
   }, [axios]);
@@ -45,8 +46,11 @@ export const ChatProvider = ({ children }) => {
         `/api/messages/send/${selectedUser._id}`,
         messageData
       );
-      if (data.success) {
-        setMessages((prev) => [...prev, data.newMessage]);
+
+      console.log("Backend Response Data:", data);
+
+      if (data.success && data.message) {
+        setMessages((prev) => [...prev, data.message]);
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to send");
@@ -84,6 +88,7 @@ export const ChatProvider = ({ children }) => {
     users,
     selectedUser,
     getUsers,
+    getMessages,
     sendMessage,
     setSelectedUser,
     unseenMessages,
