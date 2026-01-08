@@ -45,11 +45,12 @@ If you run into any issues while cloning or setting up **Orbit** on your local m
 * **Socket Disconnects:** Check if the backend server is running on the correct port defined in your `.env`.
 * **Image Upload Failures:** Verify your Cloudinary credentials and ensure you're sending the image in the correct format (Base64).
 
-### 📬 Get in Touch
-For any queries, bugs, or if you just want to say hi:
+### 📬 Reach Out
+For any queries, feature requests, or if you face any hustle while running the project, feel free to contact me:
 
-> **Email me at:** [harsh912823@gmail.com](mailto:harsh912823@gmail.com)  
-> **GitHub:** [@harshraj152003](https://github.com/harshraj152003)
+* **📧 Email:** [harsh912823@gmail.com](mailto:harsh912823@gmail.com)
+* **🔗 LinkedIn:** [Harsh Raj](https://www.linkedin.com/in/harshraj152003/)
+* **🐙 GitHub:** [@harshraj152003](https://github.com/harshraj152003)
 
 ---
 
