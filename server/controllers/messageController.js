@@ -1,8 +1,7 @@
 import cloudinary from "../lib/cloudinary.js";
 import Message from "../models/messages.js";
 import User from "../models/user.js";
-import { userSocketMap, io } from "../lib/socket.js"
-
+import { userSocketMap, io } from "../lib/socket.js";
 
 // Get all users except the logged in user
 export const getUsersForSidebar = async (req, res) => {
@@ -34,7 +33,7 @@ export const getUsersForSidebar = async (req, res) => {
     console.log("Error: " + err.message);
     res.status(404).json({
       success: false,
-      message: "Error: " + err.message,
+      message: "Error in fetching users : " + err.message,
     });
   }
 };
@@ -74,7 +73,6 @@ export const getMessage = async (req, res) => {
   }
 };
 
-
 // api to mark message as seen using message id
 export const markMessageAsSeen = async (req, res) => {
   try {
@@ -96,33 +94,33 @@ export const markMessageAsSeen = async (req, res) => {
 // send message to selected user
 export const sendMessage = async (req, res) => {
   try {
-    const {text, image} = req.body;
+    const { text, image } = req.body;
     const recieverId = req.params.id;
     const senderId = req.user._id;
 
     let imageUrl;
-    if(image){
-        const uploadResponse = await cloudinary.uploader.upload(image)
-        imageUrl = uploadResponse.secure_url;
+    if (image) {
+      const uploadResponse = await cloudinary.uploader.upload(image);
+      imageUrl = uploadResponse.secure_url;
     }
 
     const newMessage = await Message.create({
-        senderId,
-        recieverId,
-        text,
-        image: imageUrl,
-    })
+      senderId,
+      recieverId,
+      text,
+      image: imageUrl,
+    });
 
     // Emit the new message to the reciever's socket
     const recieverSocketId = userSocketMap[recieverId];
 
-    if(recieverSocketId){
-        io.to(recieverSocketId).emit("newMessage", newMessage);
+    if (recieverSocketId) {
+      io.to(recieverSocketId).emit("newMessage", newMessage);
     }
-    
+
     res.json({
-        success: true,
-        message: newMessage,
+      success: true,
+      message: newMessage,
     });
   } catch (err) {
     console.log("Error: " + err.message);

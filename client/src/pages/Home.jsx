@@ -5,21 +5,46 @@ import ChatContainer from "../components/ChatContainer";
 import { ChatContext } from "../../context/ChatContext";
 
 const Home = () => {
-  
   const { selectedUser } = useContext(ChatContext);
 
   return (
-    <div className="border w-full h-screen sm:px-[15%] sm:py-[5%]">
+    <div className="w-full h-screen bg-[#020617] bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-black flex items-center justify-center p-0 sm:p-3 md:p-6 lg:p-10 font-sans">
+      
       <div
-        className={`backdrop-blur-xl border-2 border-gray-600 rounded-2xl overflow-hidden h-full grid grid-cols-1 relative ${
-          selectedUser
-            ? "md:grid-cols-[1fr_1.5fr_1fr] xl:grid-cols-[1fr_2fr_1fr]"
-            : "md:grid-cols-2"
-        }`}
+        className={`
+          bg-[#0f172a]/40 backdrop-blur-3xl 
+          border border-white/10 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]
+          rounded-none sm:rounded-[2.5rem] 
+          overflow-hidden w-full h-full max-w-[1700px]
+          /* Desktop par grid, Mobile par simple block */
+          grid relative transition-all duration-700 cubic-bezier(0.4, 0, 0.2, 1)
+          ${
+            selectedUser
+              ? "md:grid-cols-[300px_1fr] lg:grid-cols-[320px_1fr_320px] xl:grid-cols-[380px_1fr_350px]"
+              : "grid-cols-1 md:grid-cols-[350px_1fr]"
+          }
+        `}
       >
-        <Sidebar/>
-        <ChatContainer/>
-        <RightSidebar/>
+        {/* Sidebar: Mobile par hide hoga agar user selected hai */}
+        <div className={`
+          border-r border-white/[0.08] h-full bg-black/10
+          ${selectedUser ? "hidden md:block" : "block"}
+        `}>
+          <Sidebar />
+        </div>
+
+        <div className={`
+          h-full flex flex-col relative overflow-hidden bg-linear-to-b from-transparent to-black/5
+          ${selectedUser ? "block" : "hidden md:flex"}
+        `}>
+          <ChatContainer />
+        </div>
+
+        {selectedUser && (
+          <div className="hidden lg:block border-l border-white/8 h-full bg-black/10 animate-in fade-in slide-in-from-right-10 duration-500 ease-out">
+            <RightSidebar />
+          </div>
+        )}
       </div>
     </div>
   );
